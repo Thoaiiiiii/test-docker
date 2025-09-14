@@ -3,13 +3,19 @@ services:
     build: ./frontend
     ports:
       - "3000:3000"
-    depends_on:
-      - backend   # <-- ở đây phải trùng tên service
+    volumes:
+      - ./frontend:/app      # mount đúng thư mục frontend
+      - /app/node_modules    # giữ node_modules trong container
+    stdin_open: true
+    tty: true
 
-  backend:        # <-- ở đây sửa lại cho khớp
+  backend:
     build: ./backend
     ports:
       - "5000:5000"
+    volumes:
+      - ./backend:/app
+      - /app/node_modules
     depends_on:
       - mongo
 
