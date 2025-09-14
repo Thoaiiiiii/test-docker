@@ -1,0 +1,20 @@
+services:
+  frontend:
+    build: ./frontend
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend   # <-- ở đây phải trùng tên service
+
+  backend:        # <-- ở đây sửa lại cho khớp
+    build: ./backend
+    ports:
+      - "5000:5000"
+    depends_on:
+      - mongo
+
+  mongo:
+    image: mongo
+    restart: always
+    ports:
+      - "27017:27017"
